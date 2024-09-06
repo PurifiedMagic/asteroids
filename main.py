@@ -1,6 +1,4 @@
-# this allows us to use code from
-# the open-source pygame library
-# throughout this file
+import sys
 import pygame
 
 from constants import *
@@ -44,6 +42,12 @@ def main():
         # Update group objects
         for obj in updatable:
             obj.update(dt)
+
+        # End game if an asteroid collides with the player
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
 
         # Draw group objects
         for obj in drawable:
