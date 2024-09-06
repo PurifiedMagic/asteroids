@@ -46,3 +46,26 @@ class Player(CircleShape):
         # Rotate right when "D" key is pressed
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.rotate(dt)
+
+        # Shoot shots when "SPACE" key is pressed
+        if keys[pygame.K_SPACE]:
+            self.shoot(self.position)
+    
+    def shoot(self, position):
+        shot_spawn = pygame.Vector2(position)
+        shot = Shot(shot_spawn.x, shot_spawn.y, SHOT_RADIUS)
+
+        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+
+
+class Shot(CircleShape):
+    def __init__(self, x, y, radius):
+        super().__init__(x, y, radius)
+
+    # Draw shot bullets
+    def draw(self, screen):
+        self.shot = pygame.draw.circle(screen, "blue", self.position, 2)
+
+    # Update shot bullets
+    def update(self, dt):
+        self.position += (self.velocity * dt)
