@@ -16,10 +16,14 @@ def main():
     clock = pygame.time.Clock()
     dt = 0.0
 
-    player_pos_x = SCREEN_WIDTH / 2
-    player_pos_y = SCREEN_HEIGHT / 2
+    # Create sprite object groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
     
-    player = Player(player_pos_x, player_pos_y)
+    # Add objects to sprite groups
+    Player.containers = (updatable, drawable)
+
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     while True:
         # Check for game window close event
@@ -31,8 +35,13 @@ def main():
         # Draw player every frame
         pygame.Surface.fill(screen, ("black"))
 
-        player.draw(screen)
-        player.update(dt)
+        # Update group objects
+        for obj in updatable:
+            obj.update(dt)
+
+        # Draw group objects
+        for obj in drawable:
+            obj.draw(screen)
 
         pygame.display.flip()
 

@@ -31,14 +31,15 @@ class Player(CircleShape):
     def update(self, dt):
         keys = pygame.key.get_pressed()
         
+        # Move forwards when "W" key is pressed
         if keys[pygame.K_w] or keys[pygame.K_UP]:
             self.move(dt)
 
-        # Move forwards when "W" key is pressed
+        # Move forwards when "S" key is pressed
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.move(dt * -1)
 
-        # Move backwards when "S" key is pressed
+        # Rotate left when "A" key is pressed
         if keys[pygame.K_a]  or keys[pygame.K_LEFT]:
             self.rotate(dt * -1)
 
